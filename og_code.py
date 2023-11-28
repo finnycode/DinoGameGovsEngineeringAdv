@@ -20,6 +20,29 @@ while True:
 
 
 
+#dot moves right to left
+# Imports go at the top
+from microbit import *
+
+#Dot moves right-left
+
+# Imports go at the top
+from microbit import *
+import time as t
+
+dot_column = 0
+dot_row = 4
+
+while True:
+    display.clear()
+    if dot_column == 4:
+        dot_column = 0
+        #display.clear()
+    else:
+        dot_column += 1
+    display.set_pixel(dot_column,dot_row,9)
+    
+    t.sleep(0.1)
 
 
 Jump animation
