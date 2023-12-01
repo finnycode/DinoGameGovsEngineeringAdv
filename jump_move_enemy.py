@@ -12,7 +12,7 @@ pin1.set_touch_mode(pin1.RESISTIVE)
 pin2.set_touch_mode(pin2.RESISTIVE)
 pin0.set_touch_mode(pin0.RESISTIVE)
 
-dot_column = 2
+dot_column = 0
 dot_row = 4
 display.set_pixel(dot_column, dot_row, 9)
 
@@ -25,7 +25,9 @@ enemy_choice = 1
 display.set_pixel(enemy_column, enemy_rows[0], 9)
 display.set_pixel(enemy_column, enemy_rows[1], 9)
 
-            
+score = 0
+high_score = 0
+        
     
 #jump vars
 is_jumping = False
@@ -45,10 +47,10 @@ score = 0
 high_score = 0
 
 collision_detected = False
-
+sleep(3000)
 
 while not collision_detected:
-
+    
     current_time = running_time()
 
     # Jump logic
@@ -60,6 +62,8 @@ while not collision_detected:
         jump_start_time = current_time
 
     if is_jumping and current_time > jump_start_time + jump_speed:
+        if jump_height == max_jump_height and enemy_column == dot_column and (dot_row == enemy_rows[0] or dot_row == enemy_rows[1]):
+            score += 1
         display.set_pixel(dot_column, dot_row, 0)
         if jump_height < max_jump_height:
             dot_row -= 1
@@ -126,7 +130,8 @@ while not collision_detected:
         
     
         display.set_pixel(enemy_column, enemy_rows[0], 0)
-        display.set_pixel(enemy_column, enemy_rows[1], 0)
+        if enemy_choice != 2 and enemy_column < 5:
+            display.set_pixel(enemy_column, enemy_rows[1], 0)
         
         enemy_column -= 1
         
@@ -191,11 +196,11 @@ while not collision_detected:
                     collision_detected = True    
 
 if collision_detected:
+    # Display the final score
     display.clear()
-    display.show(Image.SAD)
+    display.scroll("Game over\nScore: " + str(score))
 
-    
-    
-
-
-
+    # Update the high score
+    if score > high_score:
+        high_score = score
+        display.scroll("New High Score: " + str(high_score))
