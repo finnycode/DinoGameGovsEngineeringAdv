@@ -1,3 +1,9 @@
+#Name
+#5/12/23
+#Governor's Academy
+#Honors Engineering
+#The following codes for a game that is similar to the no WiFi chrome dinosaur game. The character is able to move right and left and jump up and down to avoid randomized forms of obstacles. When you collide with and obstacle the screen displays "Game Over" your score (number of obstacles avoided), and your new high score if you have one. 
+
 # Imports go at the top
 from microbit import *
 import time as t
